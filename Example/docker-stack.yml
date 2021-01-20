@@ -1,0 +1,82 @@
+version: '3'
+## this is a demo environment file for xfeed
+## 
+## This file start a number of container on a local docker (xfeed mode=single)
+## to show the capabilities of the xfeed 
+##  docker-compose -f docker-source.yml up -d
+##  and then start xfeed 
+
+services:
+  xfeed:
+    image: unclephil/xfeed
+    ports:
+      - "8000:8000"
+    environment:
+      - XFEED-TITLE=The xfeed menu
+      - XFEED-MODE=single
+      - XFEED-PORT=8000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+ 
+  sample1:
+    image: vad1mo/hello-world-rest
+    ports:
+      - 5051:5050
+    deploy: 
+      labels:
+        - xfeed-name=Sampl1
+        - xfeed-url=http:\\localhost:5051
+        - xfeed-tags=site container odd bleu
+        - xfeed-desc=my standard short description
+  sample2:
+    image: vad1mo/hello-world-rest
+    ports:
+      - 5052:5050
+      deploy: 
+        labels:
+        - xfeed-name=Sampl2
+        - xfeed-url=http:\\localhost:5052
+        - xfeed-tags=site container even jaune
+        - xfeed-desc=my standard short description
+  sample3:
+    image: vad1mo/hello-world-rest
+    ports:
+      - 5053:5050
+      deploy: 
+        labels:
+        - xfeed-name=Sampl3
+        - xfeed-url=http:\\localhost:5053
+        - xfeed-tags=site container odd rouge
+        - xfeed-desc=my standard short description
+  sample4:
+    image: vad1mo/hello-world-rest
+    ports:
+      - 5054:5050
+      deploy: 
+        labels:
+        - xfeed-name=Sampl4
+        - xfeed-url=http:\\localhost:5054
+        - xfeed-tags=site container even vert
+        - xfeed-desc=my standard short description
+  sample5:
+    image: vad1mo/hello-world-rest
+    ports:
+      - 5055:5050
+      deploy: 
+        labels:
+        - xfeed-name=Sampl5
+        - xfeed-url=http:\\localhost:5055
+        - xfeed-tags=site container odd jaune
+        - xfeed-desc=my standard short description
+  sample6:
+    image: vad1mo/hello-world-rest
+    ports:
+      - 5056:5050
+      deploy: 
+        labels:
+        - xfeed-name=Sampl2
+        - xfeed-url=http:\\localhost:5056
+        - xfeed-tags=site container even vert
+        - xfeed-desc=my standard short description
+            
+      

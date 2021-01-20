@@ -1,0 +1,23 @@
+<input type="radio" id="All" name="categories" value="All" checked>
+{{#each tags}}
+<input type="radio" id="{{this}}" name="categories" value="{{this}}">
+{{/each}}
+
+<ol class="filters">
+<li><label for="All">All</label></li>
+{{#each tags}}
+<li><label for="{{this}}">{{this}}</label></li>
+{{/each}} 
+</ol>
+
+<div class="blocks">
+{{#each sites }}
+   <div class="block" data-category="{{tags}}">
+        <p><a href="{{url}}" target=_blank_> {{name}} </a> </p>
+        <p class="desc">{{desc}}</p>
+        <p class="tags">{{tags}}</p>
+    {{!--    <p class="noshow">id: {{id}}</p> --}}
+    {{!--    <p class="noshow">src: {{src}}</p> --}}
+    </div>
+{{/each }}
+</div>

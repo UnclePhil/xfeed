@@ -1,0 +1,26 @@
+{
+  "name": "xfeed",
+  "version": "0.10.0",
+  "description": "HTTP endpoints for fetching various feeds from Single docker or swarm (Inspired by Flavio Stutz docker-swarm-feed)",
+  "main": "app.js",
+  "scripts": {
+    "start": "node /app/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unclephil/xfeed.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/unclephil/xfeed/issues"
+  },
+  "homepage": "https://github.com/unclephil/xfeed#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "console-server": "^1.0.9",
+    "express": "^4.16.3",
+    "express-handlebars": "^5.2.0"
+  }
+}

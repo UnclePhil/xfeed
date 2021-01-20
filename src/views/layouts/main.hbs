@@ -1,0 +1,141 @@
+<html>
+    <head>
+  <style type="text/css">
+  :root {
+  --background-color : #254356 ;
+  --grey :#566a77;   
+  --white: #fff;
+  --green: rgba(0, 255, 120, 0.6);
+  --green-light : rgb(0, 255, 120);
+
+}
+    body {
+      background-color: var(--background-color);
+      color:var(--white);
+      font-family: Helvetica, Arial, sans-serif;
+      font-weight: lighter;
+      padding: 20px;
+    }
+    header {
+        font-weight: bold;
+        font-size: 200%;
+    }
+
+    footer{
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        padding: 4px;
+        font-size: 10px;
+    }
+    .noshow{ visibility: hidden; }
+
+    .container {
+     
+    }
+    /* FILTERS
+    –––––––––––––––––––––––––––––––––––––––––––––––––– */
+    input[type="radio"] {
+        position: absolute;
+        left: -9999px;
+    }
+
+    .filter {
+        background-color : var(--grey);
+        marging:8px 3px;
+        padding: 6px 7px;
+    }
+
+    .filters {
+    text-align: left;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 0px;
+    }
+
+    .filters * {
+    display: inline-block;
+    }
+
+    .filters label {
+    padding: 5px;
+    border-radius: 1rem;
+    line-height: normal;
+    cursor: pointer;
+    transition: all 0.1s;
+    }
+
+    .filters label:hover {
+    background: var(--green);
+    color: var(--white);
+    }
+
+    .blocks {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .block {
+        border-color: var(--green-light);
+        background-color: var(--green);
+        text-align: left;
+        margin: 8px 3px;
+        padding: 6px 7px;
+        border: 2px solid var(--green-light);
+        border-radius: 3px;
+        min-width: 150px;
+        max-width: 300px;
+    }
+    .block a {
+        color: var(--white);
+        font-size: 120%;
+        font-weight: bold;
+        text-decoration: none;
+    }
+    .block a:hover {
+        color: var(--grey);
+    }
+    .block .desc {
+        color: var(--white);
+        font-style: italic;
+        font-size: 90%;
+    }
+
+    .block .tags {
+        color: var(--grey);
+        font-size: 70%;
+    }
+
+
+    /* FILTERING RULES */
+
+    /* this part set color for filter*/
+    [value="All"]:checked ~ .filters [for="All"] {background: var(--green); color: var(--white);}
+    {{#each tags}}
+    [value="{{this}}"]:checked ~ .filters [for="{{this}}"] {background: var(--green); color: var(--white);}
+    {{/each}}
+    
+    /* this part set block visibility for selected filter*/
+    [value="ALL"]:checked ~ .blocks [data-category] {
+        display: block;
+        }
+    {{#each tags}}
+    [value="{{this}}"]:checked ~ .blocks .block:not([data-category~="{{this}}"]) {display:none;}
+    {{/each}}
+
+  </style>
+
+    </head>
+    <body>
+    <header>
+    {{title}}
+    </header>
+    <div class="container">
+    {{{body}}}
+    </div>
+    <footer><span>Xfeed, made by UnclePhil with <3 - 2021 - https://github.com/unclephil/xfeed </span> </footer>
+   
+  
+    </body>
+</html>
