@@ -1,13 +1,13 @@
 # import secret deploy config
 # You can change the default deploy config with `make cnf="deploy_special.env" release`
 # don't forget to put this file in .gitignore 
-dck ?= ../.docker/.docker
-dckpw ?= ../.docker/.dockerpw
+dck ?= ~/.pko_config/.docker/.docker
+dckpw ?= ~/.pko_config/.docker/.dockerpw
 include $(dck)
 export $(shell sed 's/=.*//' $(dck))
 
 # import deploy config
-dpl ?= deploy.env
+dpl ?= ./deploy.env
 include $(dpl)
 export $(shell sed 's/=.*//' $(dpl))
 
