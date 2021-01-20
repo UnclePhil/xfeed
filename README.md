@@ -21,6 +21,13 @@ https://webdesign.tutsplus.com/tutorials/how-to-build-a-filtering-component-in-p
 And some pain  !!!!
 
 ## Usage
+
+use  https://hub.docker.com/repository/docker/unclephil/xfeed 
+```
+docker pull unclephil/xfeed
+```
+or clone this repo and build it on your infra
+
 ### Examples
 * docker-compose-yml for single docker 
 * docker-stack.yml for swarm cluster 
