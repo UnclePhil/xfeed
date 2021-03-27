@@ -11,6 +11,7 @@ const GetFeed = require('./GetFeed');
 // application config
 
 const title = process.env.XFEED_TITLE ||"XFeed";
+const titleurl = process.env.XFEED_TITLEURL ||"/";
 const mode = process.env.XFEED_MODE || 'test';
 const PORT = process.env.XFEED_PORT || 8000 ;
 const theme = process.env.XFEED_THEME ||"default" ;
@@ -44,7 +45,7 @@ app.get("/", async (req, res, next) => {
               tgs.sort();
             })
             logger.debug(tgs)
-            res.render('home', {title:title, sites:feed, tags:tgs.filter(distinct)});
+            res.render('home', {title:title, titleurl:titleurl, sites:feed, tags:tgs.filter(distinct)});
         });
     } catch (err) {
       next(err);
