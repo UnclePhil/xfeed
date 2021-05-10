@@ -8,13 +8,22 @@ const exphbs  = require('express-handlebars');
 // aplication internals
 const GetFeed = require('./GetFeed');
 
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
+
+
 // application config
 
 const title = process.env.XFEED_TITLE ||"XFeed";
 const titleurl = process.env.XFEED_TITLEURL ||"/";
 const mode = process.env.XFEED_MODE || 'test';
 const PORT = process.env.XFEED_PORT || 8000 ;
-const theme = process.env.XFEED_THEME ||"default" ;
+const theme = process.env.XFEED_THEME ||"default";
+const build = process.env.BUILD || "Unknow"
+
+// application infos 
+const infos={"build":build,"port":PORT,"mode":mode}
+
 
 // express server configuration
 const app = express();
@@ -69,16 +78,13 @@ app.get("/json", async (req, res, next) => {
 // check server is working
 app.get('/health', (req, res) => {
     logger.info('request /health');
-    res.send('OK');
+    res.end(JSON.stringify(infos));
 });
 
 let server = app.listen(PORT, function () {
-    logger.info(`Xfeed running on port ${PORT}`);
-    logger.info('Xfeed on mode '+mode)
+    logger.info('Xfeed starting :'+JSON.stringify(infos)) ;  
 });
 
-const util = require('util');
-const exec = util.promisify(require('child_process').exec);
 
 // additional startup infos
 //  -- verify docker status

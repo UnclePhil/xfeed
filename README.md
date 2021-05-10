@@ -11,9 +11,9 @@ Made in Belgium, Europe, Earth
 
 ## Inspirations
 ### Feeder
-Flavio Stutz swarm feed (https://github.com/flaviostutz/docker-swarm-feeds), 
+Flavio Stutz swarm feeds (https://github.com/flaviostutz/docker-swarm-feeds), 
 
-But more generic, to be used with any ingress server, and with more flexible outpout 
+But more generic, to be used with any ingress server, and with more flexible output 
 
 ### Css filtering
 https://webdesign.tutsplus.com/tutorials/how-to-build-a-filtering-component-in-pure-css--cms-33111
@@ -33,9 +33,10 @@ or clone this repo and build it on your infra
 * docker-stack.yml for swarm cluster 
 
 ### Environment variable
-* XFEED_TITLE : the html presentation title (default (Xfeed))
-* XFEED_MODE  : the working mode (default: test)
-* XFEED_PORT  : Server listen port (default 8000) 
+* XFEED_TITLE    : the html presentation title (default (Xfeed))
+* XFEED_TITLEURL : the title url  (default (/))
+* XFEED_MODE     : the working mode (default: test)
+* XFEED_PORT     : Server listen port (default 8000) 
 
 ### Working mode
 * test : return a predefined set of 4 url

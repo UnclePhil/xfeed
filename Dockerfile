@@ -1,7 +1,5 @@
 FROM node:10.6-alpine
-
-
-
+ARG build_arg="-"
 
 #INSTALL DOCKER CLI
 RUN apk add --no-cache \
@@ -61,7 +59,8 @@ RUN set -ex; \
 # COPY docker-entrypoint.sh /usr/local/bin/
 
 #Environment
-ENV LOGGER_LEVEL info 
+ENV LOGGER_LEVEL=info
+ENV BUILD=$build_arg
 WORKDIR /app
 
 #Optimize building time. Cache npm install on this layer so that it is cached between code updates.

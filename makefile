@@ -12,9 +12,7 @@ include $(dpl)
 export $(shell sed 's/=.*//' $(dpl))
 
 # get the version from the date/time
-# VERSION=$(shell date '+%Y%m%d%H%M%S')
 VERSION=$(shell date '+%Y%m%d%H%M')
-
 
 # HELP
 # This will output the help for each task
@@ -30,10 +28,10 @@ help: ## This help.
 # DOCKER TASKS
 # Build the container
 build: ## Build the container
-	docker build --rm --force-rm ${APP_ARGS} -t $(APP_NAME) .
+	docker build --rm --force-rm --build-arg build_arg="$(VERSION)" -t $(APP_NAME) .
 
 build-nc: ## Build the container without caching
-	docker build --no-cache --rm --force-rm $(APP_ARGS) -t $(APP_NAME) .
+	docker build --no-cache --rm --force-rm --build-arg build_arg="$(VERSION)" -t $(APP_NAME) .
 
 # Run the container 
 run: ## Run container on port configured in `deploy.env`
