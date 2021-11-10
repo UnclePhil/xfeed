@@ -1,33 +1,21 @@
 FROM node:10.6-alpine
 ARG build_arg="-"
 
-#INSTALL DOCKER CLI
-RUN apk add --no-cache \
-    ca-certificates
-
-# set up nsswitch.conf for Go's "netgo" implementation (which Docker explicitly uses)
-# - https://github.com/docker/docker-ce/blob/v17.09.0-ce/components/engine/hack/make.sh#L149
-# - https://github.com/golang/go/blob/go1.9.1/src/net/conf.go#L194-L275
-# - docker run --rm debian:stretch grep '^hosts:' /etc/nsswitch.conf
-RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf
-
 ENV DOCKER_CHANNEL test
 ENV DOCKER_VERSION 18.06.0-ce-rc2
-# TODO ENV DOCKER_SHA256
-# https://github.com/docker/docker-ce/blob/5b073ee2cf564edee5adca05eee574142f7627bb/components/packaging/static/hash_files !!
-# (no SHA file artifacts on download.docker.com yet as of 2017-06-07 though)
 
-RUN set -ex; \
-    # why we use "curl" instead of "wget":
-    # + wget -O docker.tgz https://download.docker.com/linux/static/stable/x86_64/docker-17.03.1-ce.tgz
-    # Connecting to download.docker.com (54.230.87.253:443)
-    # wget: error getting response: Connection reset by peer
+ENV LOGGER_LEVEL=info
+ENV BUILD=$build_arg
+
+#INSTALL DOCKER CLI
+RUN apk add --no-cache ca-certificates \
+    [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf  \
+    set -ex; \
     apk add --no-cache --virtual .fetch-deps \
     curl \
     tar \
     ; \
     \
-    # this "case" statement is generated via "update.sh"
     apkArch="$(apk --print-arch)"; \
     case "$apkArch" in \
     x86_64) dockerArch='x86_64' ;; \
@@ -55,20 +43,10 @@ RUN set -ex; \
     dockerd -v; \
     docker -v
 
-# COPY modprobe.sh /usr/local/bin/modprobe
-# COPY docker-entrypoint.sh /usr/local/bin/
-
-#Environment
-ENV LOGGER_LEVEL=info
-ENV BUILD=$build_arg
 WORKDIR /app
 
-#Optimize building time. Cache npm install on this layer so that it is cached between code updates.
-ADD src/package.json /app
+COPY src/ /app
 RUN npm install
-
-ADD src/ /app
-#RUN npm install
 
 VOLUME [ "/var/run/docker.sock" ]
 
