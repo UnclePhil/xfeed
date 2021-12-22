@@ -71,8 +71,13 @@ app.get("/json", async (req, res, next) => {
     try {
         GetFeed.getLabels(mode).then(feed => {
             logger.info('request /json');
+            var tgs=[]
+            feed.forEach(function (f) {
+              tgs=tgs.concat(f.tags.split(" "));
+              tgs.sort();
+            })
             res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify(feed));
+            res.end(JSON.stringify({title:title, titleurl:titleurl, sites:feed, tags:tgs.filter(distinct)}));
             
         });
     } catch (err) {
