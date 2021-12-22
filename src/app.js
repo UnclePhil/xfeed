@@ -1,12 +1,17 @@
 "use strict";
 
-const logger = require('console-server');
+const logger =require('console-server');
 const express = require('express');
-const bodyParser  = require('body-parser');
-const exphbs  = require('express-handlebars');
+const bodyParser = require('body-parser');
+const handlebars = require('express-handlebars');
+
+// Define "require"
+// import { createRequire } from "module";
+// const require = createRequire(import.meta.url);
+
 
 // aplication internals
-const GetFeed = require('./GetFeed');
+const GetFeed = require('./GetFeed.js');
 
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
@@ -27,7 +32,7 @@ const infos={"build":build,"port":PORT,"mode":mode}
 
 // express server configuration
 const app = express();
-app.engine('hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
+app.engine('hbs', handlebars.engine({defaultLayout: 'main', extname: '.hbs'}));
 app.set('view engine', 'hbs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

@@ -1,8 +1,8 @@
-FROM node:10.6-alpine
+FROM node:lts-alpine
 ARG build_arg="-"
 
-ENV DOCKER_CHANNEL test
-ENV DOCKER_VERSION 18.06.0-ce-rc2
+ENV DOCKER_CHANNEL stable
+ENV DOCKER_VERSION 20.10.9
 
 ENV LOGGER_LEVEL=info
 ENV BUILD=$build_arg
